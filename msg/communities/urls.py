@@ -1,23 +1,15 @@
-from django.conf.urls import url
+from django.urls import path, include
 
 from . import views
 
+
+app_name = "communities"
+
 urlpatterns = [
-    url(r"^$", views.AllCommunities.as_view(), name="list"),
-    url(r"^new/$", views.CreateCommunity.as_view(), name="create"),
-    url(
-        r"^posts/in/(?P<slug>[-\w]+)/$",
-        views.SingleCommunity.as_view(),
-        name="single"
-    ),
-    url(
-        r"join/(?P<slug>[-\w]+)/$",
-        views.JoinCommunity.as_view(),
-        name="join"
-    ),
-    url(
-        r"leave/(?P<slug>[-\w]+)/$",
-        views.LeaveCommunity.as_view(),
-        name="leave"
-    ),
+    path("", views.AllCommunities.as_view(), name="list"),
+    path("new/", views.CreateCommunity.as_view(), name="create"),
+    path("posts/in/<slug>/", views.SingleCommunity.as_view(), name="single"),
+    path("join/<slug>/", views.JoinCommunity.as_view(), name="join"),
+    path("leave/<slug>/", views.LeaveCommunity.as_view(), name="leave"),
+    path("change_status/<slug>/<user_id>/<status>", views.ChangeStatus.as_veiw(), name="change_status")
 ]
